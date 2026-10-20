@@ -21,17 +21,20 @@ DOCS_DIR = ROOT_DIR / "docs"
 
 
 def load_env(env_path: Path | None = None) -> None:
-    """Load environment variables from `.env` if present."""
-    target = env_path or (ROOT_DIR / ".env")
-    if load_dotenv is not None and target.is_file():
-        load_dotenv(target, override=False)
-    elif target.is_file():
-        for raw_line in target.read_text(encoding="utf-8").splitlines():
-            line = raw_line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, val = line.split("=", 1)
-            os.environ.setdefault(key.strip(), val.strip().strip("'\""))
+    """Load environment variables from `api_keys.env` or `.env` if present."""
+    candidates = [env_path] if env_path else [ROOT_DIR / "api_keys.env", ROOT_DIR / ".env"]
+    for target in candidates:
+        if target is None or not target.is_file():
+            continue
+        if load_dotenv is not None:
+            load_dotenv(target, override=False)
+        else:
+            for raw_line in target.read_text(encoding="utf-8").splitlines():
+                line = raw_line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, val = line.split("=", 1)
+                os.environ.setdefault(key.strip(), val.strip().strip("'\""))
 
 
 @dataclass(frozen=True)
