@@ -1,0 +1,27 @@
+# Environment variables & secrets (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+
+# Python virtual environments & caches
+.venv/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# Downloaded dataset caches & raw run logs (can be regenerated)
+data/cache/
+results/raw/
+
+# OS & editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
