@@ -52,6 +52,15 @@ class ModelSpec:
 
 
 MODELS: dict[str, ModelSpec] = {
+    "d3-ultra": ModelSpec(
+        slug="d3-ultra",
+        display_name="vLLM-SR d3-ultra (27B)",
+        provider="decision",
+        model_id="vllm-sr/d3-ultra",
+        params_label="26.09B",
+        default_concurrency=10,
+        rpm_limit=540,
+    ),
     "d3-turbo": ModelSpec(
         slug="d3-turbo",
         display_name="vLLM-SR d3-turbo (27B)",
